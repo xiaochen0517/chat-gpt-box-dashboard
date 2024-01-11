@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {ElForm} from "element-plus";
-import {ref} from "vue";
-import axios from "axios";
+import {ref, inject} from "vue";
+import {AxiosInstance} from "axios";
+import router from "@/router/Router.ts";
 
 
 const loginForm = ref({
@@ -11,9 +12,11 @@ const loginForm = ref({
 const loginFormRules = ref({
   username: [
     {required: true, message: "请输入用户名", trigger: "blur"},
+    {min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur"}
   ],
   password: [
     {required: true, message: "请输入密码", trigger: "blur"},
+    {min: 6, max: 20, message: "长度在 6 到 20 个字符", trigger: "blur"}
   ],
 });
 const loginLoading = ref(false);
@@ -36,9 +39,10 @@ const loginClick = async () => {
     loginLoading.value = false;
   }
 };
+const axios: AxiosInstance = inject("axios");
 const doLogin = async () => {
-  await axios.post("/api/login", loginForm.value);
-  window.location.href = "/";
+  await axios.post("/user/login", loginForm.value);
+  router.push({path: "/"});
 };
 </script>
 
@@ -49,7 +53,8 @@ const doLogin = async () => {
       :model="loginForm"
       :rules="loginFormRules"
       label-width="100px"
-      label-suffix=" : "
+      label-suffix=":"
+      label-position="left"
       @keydown.enter.stop.prevent="loginClick"
   >
     <el-form-item label="Username" prop="username">
@@ -64,4 +69,8 @@ const doLogin = async () => {
       </el-button>
     </el-form-item>
   </el-form>
+  <div class="text-center text-xs">
+    Don't have an account?
+    <a class="underline text-blue-600 cursor-pointer" @click.stop="$emit('switchSignUp')">Sign Up now</a>
+  </div>
 </template>
