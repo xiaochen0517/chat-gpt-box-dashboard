@@ -1,5 +1,6 @@
 import {createApp} from "vue";
 import "@/assets/styles/tailwind.css";
+import "element-plus/theme-chalk/index.css";
 import "@/assets/styles/style.less";
 import App from "./App.vue";
 

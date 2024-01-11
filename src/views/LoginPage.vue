@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import {onMounted, ref} from "vue";
+import LoginContainer from "@/components/login/LoginContainer.vue";
 
 onMounted(() => {
   setLoginPageContainerBackground()
@@ -8,7 +9,6 @@ onMounted(() => {
         console.error(error);
       });
 });
-
 const getBingWallpaper = async () => {
   const res = await axios.get(`https://corsproxy.io/?${encodeURIComponent("https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN")}`);
   if (!res || res.status != 200 || !res.data || !res.data.images || !res.data.images[0]) {
@@ -16,22 +16,27 @@ const getBingWallpaper = async () => {
   }
   return `https://cn.bing.com${res.data.images[0].url}`;
 };
-const loginPageContainer = ref<HTMLElement | null>(null);
+const loginPageBackgroundRef = ref<HTMLElement | null>(null);
 const setLoginPageContainerBackground = async () => {
   const bingWallpaper = await getBingWallpaper();
-  if (!loginPageContainer.value) {
+  if (!loginPageBackgroundRef.value) {
     throw new Error("loginPageContainer is null");
   }
-  loginPageContainer.value.style.backgroundImage = `url(${bingWallpaper})`;
+  loginPageBackgroundRef.value.style.backgroundImage = `url(${bingWallpaper})`;
 };
+
 </script>
 
 <template>
-  <div
-      ref="loginPageContainer"
-      class="w-full h-full bg-cover bg-no-repeat bg-center flex flex-row justify-center items-center"
-  >
-    <div class="w-96 h-64 bg-neutral-100 opacity-80 rounded-lg">
+  <div class="w-full h-full flex flex-row bg-neutral-50">
+    <div ref="loginPageBackgroundRef" class="flex-1 bg-cover bg-no-repeat bg-center rounded-r-3xl"/>
+    <div class="w-96 h-full flex flex-col justify-center bg-neutral-100 bg-opacity-95 rounded-2xl">
+      <h1 class="py-2 text-center text-xl leading-15">Chat Gpt Dashboard</h1>
+      <LoginContainer/>
+      <div class="text-center text-xs">
+        Don't have an account?
+        <a class="underline text-blue-600 cursor-pointer">Sign Up now</a>
+      </div>
     </div>
   </div>
 </template>
