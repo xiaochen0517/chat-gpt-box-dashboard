@@ -29,7 +29,6 @@ const signUpForm = ref<SignUpFormType>({
   password: "123456",
   repeat: "123456",
 });
-// disable eslint for this function
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const checkPasswordRepeat = (_rule: any, value: any, callback: any) => {
   if (value === "") {

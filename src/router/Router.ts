@@ -1,17 +1,19 @@
-import {createRouter, createWebHashHistory} from "vue-router";
-
-export type RouteRecordRaw = {
-  path: string;
-  name: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: () => Promise<any>;
-};
+import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
+import {menus} from "@/router/Menu.ts";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/",
+    path: "/:pathMatch(.*)*",
     name: "Home",
     component: () => import("@/views/HomePage.vue"),
+    children: [
+      ...menus,
+      {
+        path: "/:pathMatch(.*)*",
+        name: "NotFound",
+        component: () => import("@/views/NotFoundPage.vue"),
+      }
+    ],
   },
   {
     path: "/login",
@@ -22,12 +24,12 @@ const routes: RouteRecordRaw[] = [
     path: "/about",
     name: "About",
     component: () => import("@/views/AboutPage.vue"),
-  }
+  },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 });
 
 export default router;

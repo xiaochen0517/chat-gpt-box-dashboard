@@ -14,6 +14,9 @@ export default {
         "15": "3.75rem",
         "16": "4rem",
       },
+      boxShadow: {
+        "right": "4px 0px 6px -1px rgb(0 0 0 / 0.1), 2px 0px 4px -2px rgb(0 0 0 / 0.1)",
+      }
     },
   },
   plugins: [],

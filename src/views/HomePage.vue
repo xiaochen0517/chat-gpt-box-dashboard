@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import {useConfigStore} from "@/store/ConfigStore.ts";
+import SideMenuComponent from "@/components/layout/SideMenuComponent.vue";
 
-const configStore = useConfigStore();
 </script>
 
 <template>
-  <div class="w-10 h-10 bg-red-500"/>
-  <button @click="$router.push({path: '/about'})">jump</button>
-  <div>{{ configStore.count }}</div>
-  <button @click="configStore.increment">increment</button>
+  <div class="w-full h-full flex flex-row gap-0.5">
+    <div class="h-full">
+      <SideMenuComponent/>
+    </div>
+    <div class="flex-1 h-full">
+      <router-view/>
+    </div>
+  </div>
 </template>

@@ -46,7 +46,7 @@ const doLogin = async () => {
     throw new Error("axios is null");
   }
   await axios.post("/user/login", loginForm.value);
-  router.push({path: "/"});
+  router.push({path: "/main"});
 };
 </script>
 
