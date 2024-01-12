@@ -5,16 +5,6 @@ import {ref} from "vue";
 import {useChallengeV3} from "vue-recaptcha";
 
 const {execute} = useChallengeV3("submit");
-const recaptchaCheck = async () => {
-  try {
-    // just use front-end recaptcha check, no need to check the response
-    await execute();
-  } catch (error) {
-    ElMessage.error("recaptcha check error");
-    console.error("recaptcha check error: ", error);
-    throw error;
-  }
-};
 type SignUpFormType = {
   username: string;
   email: string;
@@ -86,7 +76,13 @@ const doSignUp = async () => {
   if (!axios) {
     throw new Error("axios is null");
   }
-  await recaptchaCheck();
+  try {
+    await execute();
+  } catch (error) {
+    ElMessage.error("reCaptcha verify failed");
+    console.log(error);
+    return;
+  }
   await axios.post("/user/signup", signUpForm.value);
   window.location.href = "/";
 };

@@ -16,6 +16,11 @@ export default {
       },
       boxShadow: {
         "right": "4px 0px 6px -1px rgb(0 0 0 / 0.1), 2px 0px 4px -2px rgb(0 0 0 / 0.1)",
+      },
+      flex: {
+        "2": "2",
+        "3": "3",
+        "4": "4",
       }
     },
   },
