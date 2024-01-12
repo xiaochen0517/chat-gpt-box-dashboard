@@ -3,8 +3,8 @@ import router from "@/router/Router.ts";
 
 type MenuItemProps = {
   active: boolean,
-  icon: string,
-  title: string,
+  icon?: string,
+  title?: string,
   path?: string,
 }
 const props = withDefaults(defineProps<MenuItemProps>(), {

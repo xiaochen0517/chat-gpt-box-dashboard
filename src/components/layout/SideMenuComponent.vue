@@ -25,8 +25,8 @@ const feedbackDialogRef = ref<InstanceType<typeof FeedbackDialog> | null>(null);
             v-for="menuItem in menuList"
             :key="menuItem.path"
             :active="$route.name === menuItem.name"
-            :icon="menuItem.meta?.icon"
-            :title="menuItem.meta?.title"
+            :icon="menuItem.meta?.icon as string"
+            :title="menuItem.meta?.title as string"
             :path="menuItem.path"
         />
       </ul>
@@ -38,7 +38,3 @@ const feedbackDialogRef = ref<InstanceType<typeof FeedbackDialog> | null>(null);
     <FeedbackDialog ref="feedbackDialogRef"/>
   </div>
 </template>
-
-<style scoped lang="less">
-
-</style>
