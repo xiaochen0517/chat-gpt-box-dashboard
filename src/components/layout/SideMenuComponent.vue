@@ -3,12 +3,14 @@ import {menus} from "@/router/Menu.ts";
 import {onMounted, ref} from "vue";
 import {RouteRecordRaw} from "vue-router";
 import SideMenuListItem from "@/components/layout/sidebar/SideMenuListItem.vue";
+import FeedbackDialog from "@/components/layout/sidebar/FeedbackDialog.vue";
 
 const menuList = ref<RouteRecordRaw[]>([]);
 onMounted(() => {
   // Filter has permission menu
   menuList.value = menus;
 });
+const feedbackDialogRef = ref<InstanceType<typeof FeedbackDialog> | null>(null);
 </script>
 
 <template>
@@ -26,10 +28,11 @@ onMounted(() => {
         />
       </ul>
       <ul class="p-1 pb-2">
-        <SideMenuListItem icon="icon-alert" title="Feedback"/>
+        <SideMenuListItem icon="icon-alert" title="Feedback" @click="feedbackDialogRef?.show()"/>
         <SideMenuListItem icon="icon-export" title="Logout" @click="$router.push({path: '/login'})"/>
       </ul>
     </div>
+    <FeedbackDialog ref="feedbackDialogRef"/>
   </div>
 </template>
 
