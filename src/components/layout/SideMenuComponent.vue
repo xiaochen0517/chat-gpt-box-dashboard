@@ -16,7 +16,10 @@ const feedbackDialogRef = ref<InstanceType<typeof FeedbackDialog> | null>(null);
 <template>
   <div class="relative h-full w-12">
     <div class="z-10 bg-white hover:shadow-right absolute left-0 top-0 bottom-0 h-full flex flex-col w-12 group hover:w-64 transition-all ease-in-out duration-500 delay-100 text-xl text-neutral-700 border-r border-neutral-200">
-      <i class="iconfont icon-menu mx-3 mt-2 mb-2"/>
+      <i
+          class="iconfont icon-menu mx-3 mt-2 mb-2 hover:text-green-600 cursor-pointer"
+          @click="$router.push({path: '/main'})"
+      />
       <ul class="p-1 flex-1">
         <SideMenuListItem
             v-for="menuItem in menuList"
