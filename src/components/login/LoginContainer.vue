@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {ElForm} from "element-plus";
-import {ref, inject} from "vue";
-import {AxiosInstance} from "axios";
+import {ElForm, ElMessage} from "element-plus";
+import axios from "@/axios/Axios.ts";
+import {ref} from "vue";
 import router from "@/router/Router.ts";
 
 
@@ -21,26 +21,30 @@ const loginFormRules = ref({
 });
 const loginLoading = ref(false);
 const loginFormRef = ref<InstanceType<typeof ElForm> | null>(null);
-const loginClick = async () => {
+const loginClick = () => {
   if (!loginFormRef.value) {
     throw new Error("loginFormRef is null");
   }
   loginLoading.value = true;
-  try {
-    const valid = loginFormRef.value.validate();
-    if (!valid) {
-      loginLoading.value = false;
-      return;
-    }
-    await doLogin();
-  } catch (error) {
-    console.error(error);
-  } finally {
-    loginLoading.value = false;
-  }
+  loginFormRef.value.validate()
+      .then(async (valid) => {
+        if (!valid) {
+          ElMessage.warning("form validate failed, please check the form");
+          loginLoading.value = false;
+          return;
+        }
+        await doLogin();
+        loginLoading.value = false;
+      })
+      .catch((error) => {
+        console.error(error);
+        loginLoading.value = false;
+      });
 };
-const axios: AxiosInstance = inject("axios");
 const doLogin = async () => {
+  if (!axios) {
+    throw new Error("axios is null");
+  }
   await axios.post("/user/login", loginForm.value);
   router.push({path: "/"});
 };
@@ -61,7 +65,7 @@ const doLogin = async () => {
       <el-input v-model="loginForm.username" placeholder="Please input username"></el-input>
     </el-form-item>
     <el-form-item label="Password" prop="password">
-      <el-input v-model="loginForm.password" placeholder="Please input password"></el-input>
+      <el-input type="password" v-model="loginForm.password" placeholder="Please input password" show-password/>
     </el-form-item>
     <el-form-item label-width="0px">
       <el-button class="w-full mt-2" type="primary" :loading="loginLoading" @click.stop="loginClick">

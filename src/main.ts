@@ -2,9 +2,10 @@ import {createApp} from "vue";
 import "@/assets/styles/tailwind.css";
 import "element-plus/theme-chalk/index.css";
 import "@/assets/styles/style.less";
+import "@/assets/icons/iconfont/iconfont.css";
 import App from "./App.vue";
-import axios from "@/axios/Axios";
-import VueAxios from "vue-axios";
+
+import { VueRecaptchaPlugin } from "vue-recaptcha/head";
 
 // Router
 import router from "@/router/Router";
@@ -17,7 +18,8 @@ pinia.use(piniaPluginPersistedstate);
 const app = createApp(App);
 app.use(router);
 app.use(pinia);
-app.use(VueAxios, axios);
-app.provide("axios", app.config.globalProperties.axios);
+app.use(VueRecaptchaPlugin, {
+  v3SiteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY as string,
+});
 
 app.mount("#app");

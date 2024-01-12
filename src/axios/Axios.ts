@@ -2,7 +2,6 @@ import axios from "axios";
 import router from "@/router/Router.ts";
 import {ElMessage} from "element-plus";
 
-console.log("url", import.meta.env.VITE_API_URL);
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_URL as string,
   timeout: 10000,
@@ -34,7 +33,7 @@ instance.interceptors.response.use(
     }
     if (response.status >= 400 && response.status < 500) {
       console.log("response", response);
-      ElMessage.error(response.data.message);
+      ElMessage.error("server error, please try again later");
       return Promise.reject(response.data);
     }
     if (response.status === 1000) {
@@ -50,6 +49,7 @@ instance.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    ElMessage.error("server error, please try again later");
     console.log("error", error);
     return Promise.reject(error);
   }

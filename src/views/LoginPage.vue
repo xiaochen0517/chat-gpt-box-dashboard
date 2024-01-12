@@ -23,8 +23,8 @@ const isLogin = ref(true);
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-row bg-neutral-50">
-    <div ref="loginPageBackgroundRef" class="flex-1 bg-cover bg-no-repeat bg-center rounded-r-2xl"/>
+  <div class="w-full h-full flex flex-row gap-0.5 bg-neutral-50">
+    <div ref="loginPageBackgroundRef" class="flex-1 bg-cover bg-no-repeat bg-center rounded-r-xl"/>
     <div class="w-96 h-full flex flex-col justify-center">
       <h1 class="pb-4 text-center font-bold text-xl leading-10">Chat Gpt Dashboard</h1>
       <LoginContainer v-if="isLogin" @switchSignUp="isLogin = false"/>
