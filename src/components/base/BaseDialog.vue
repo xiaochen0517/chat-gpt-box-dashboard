@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {getCurrentInstance, ref, watch} from "vue";
 
 const instance = getCurrentInstance();
@@ -38,15 +38,15 @@ watch(showDialog, (value) => {
       :show-close="false"
       :width="width"
   >
-    <template #title>
+    <template #header>
       <div v-if="title && title.length > 0" class="px-4 py-2 text-sm font-bold">{{ title }}</div>
       <slot v-else name="title"/>
     </template>
     <div class="bg-white">
       <div
           v-if="description && description.length !== 0"
-          class="px-4 pb-1 flex flex-row gap-1"
           :class="{'justify-end': descAlign === 'right', 'justify-center': descAlign === 'center'}"
+          class="px-4 pb-1 flex flex-row gap-1"
       >
         <i class="iconfont icon-info-circle text-neutral-500 dark:text-neutral-400"></i>
         {{ description }}
