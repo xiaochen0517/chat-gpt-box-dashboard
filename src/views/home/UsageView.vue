@@ -39,14 +39,14 @@ const option = ref({
   },
   xAxis: {
     type: "category",
-    data: [],
+    data: [] as string[],
   },
   yAxis: {
     type: "value",
   },
   series: [
     {
-      data: [],
+      data: [] as number[],
       type: "bar",
       itemStyle: {
         color: "#22c55e",
