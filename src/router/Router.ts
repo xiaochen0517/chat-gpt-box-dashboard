@@ -9,10 +9,10 @@ const routes: RouteRecordRaw[] = [
     children: [
       ...menus,
       {
-        path: "/:pathMatch(.*)*",
+        path: "",
         name: "NotFound",
         component: () => import("@/views/NotFoundPage.vue"),
-      }
+      },
     ],
   },
   {

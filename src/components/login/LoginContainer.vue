@@ -56,6 +56,9 @@ const doLogin = async () => {
   await axios.post("/user/login", loginForm.value);
   router.push({path: "/main"});
 };
+defineEmits({
+  switchSignUp: () => true,
+});
 </script>
 
 <template>

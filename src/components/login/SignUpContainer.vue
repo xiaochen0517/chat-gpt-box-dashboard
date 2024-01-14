@@ -102,6 +102,9 @@ const sendEmailCodeClick = () => {
         console.error(error);
       });
 };
+defineEmits({
+  switchLogin: () => true,
+});
 </script>
 
 <template>

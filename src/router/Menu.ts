@@ -3,7 +3,7 @@ import {RouteRecordRaw} from "vue-router";
 export const menus: RouteRecordRaw[] = [
   {
     name: "Main",
-    path: "/main",
+    path: "main",
     meta: {
       icon: "icon-home",
       title: "Main",
@@ -13,7 +13,7 @@ export const menus: RouteRecordRaw[] = [
   },
   {
     name: "Settings",
-    path: "/settings",
+    path: "settings",
     meta: {
       icon: "icon-setting",
       title: "Settings",
