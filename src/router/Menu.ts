@@ -7,9 +7,19 @@ export const menus: RouteRecordRaw[] = [
     meta: {
       icon: "icon-home",
       title: "Main",
-      permissions: ["user"]
+      permissions: ["user"],
     },
     component: () => import("@/views/home/MainView.vue"),
+  },
+  {
+    name: "Usage",
+    path: "usage",
+    meta: {
+      icon: "icon-barchart",
+      title: "Usage",
+      permissions: ["user"],
+    },
+    component: () => import("@/views/home/UsageView.vue"),
   },
   {
     name: "Settings",
@@ -17,8 +27,8 @@ export const menus: RouteRecordRaw[] = [
     meta: {
       icon: "icon-setting",
       title: "Settings",
-      permissions: ["admin"]
+      permissions: ["admin"],
     },
     component: () => import("@/views/home/SettingsView.vue"),
-  }
+  },
 ];
