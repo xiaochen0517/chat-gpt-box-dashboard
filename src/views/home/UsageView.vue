@@ -4,6 +4,7 @@ import {CanvasRenderer} from "echarts/renderers";
 import {BarChart} from "echarts/charts";
 import {GridComponent, LegendComponent, TitleComponent, TooltipComponent} from "echarts/components";
 import VChart from "vue-echarts";
+import {EChartsOption} from "echarts";
 import {onMounted, ref} from "vue";
 
 use([
@@ -15,11 +16,12 @@ use([
   GridComponent,
 ]);
 
-const option = ref({
+const option = ref<EChartsOption>({
   title: {
     text: "Monthly Usage",
     left: "left",
     textStyle: {
+      fontFamily: "Aileron",
       fontSize: 16,
       fontWeight: "bold",
     },
@@ -28,6 +30,15 @@ const option = ref({
     trigger: "axis",
     axisPointer: {
       type: "shadow",
+    },
+    textStyle: {
+      fontFamily: "Aileron",
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formatter: function (params: any) {
+      console.log(params);
+      const data = params[0];
+      return `1月${data.name}日: $${data.value.toFixed(2)}`;
     },
   },
   grid: {
@@ -40,9 +51,20 @@ const option = ref({
   xAxis: {
     type: "category",
     data: [] as string[],
+    axisLabel: {
+      interval: function (index: number) {
+        // 每 3 天显示一次
+        return index % 3 === 0;
+      },
+    },
   },
   yAxis: {
     type: "value",
+    axisLabel: {
+      formatter: function (value: number) {
+        return `$${value.toFixed(2)}`;
+      },
+    },
   },
   series: [
     {
@@ -50,7 +72,7 @@ const option = ref({
       type: "bar",
       itemStyle: {
         color: "#22c55e",
-        borderRadius: [4, 4, 0, 0],
+        borderRadius: [2, 2, 0, 0],
       },
     },
   ],
@@ -58,7 +80,7 @@ const option = ref({
 
 onMounted(() => {
   for (let i = 1; i < 32; i++) {
-    option.value.series[0].data.push(Math.floor(Math.random() * 1000));
+    option.value.series[0].data.push(Math.floor(Math.random() * 10));
     option.value.xAxis.data.push(`${i}`);
   }
 });

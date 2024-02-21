@@ -6,7 +6,7 @@ const rejectLogin = ref(false);
 
 <template>
   <div class="w-full h-full">
-    <div class="px-6 py-2 text-2xl font-bold border-b">Settings</div>
+    <h1 class="px-6 py-2 text-2xl font-bold border-b">Settings</h1>
     <div class="pl-6 pt-4">
       <div class="font-bold text-lg leading-10">Base</div>
       <div class="font-bold">Reject Login</div>

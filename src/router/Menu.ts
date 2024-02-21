@@ -2,11 +2,11 @@ import {RouteRecordRaw} from "vue-router";
 
 export const menus: RouteRecordRaw[] = [
   {
-    name: "Main",
-    path: "main",
+    name: "Home",
+    path: "home",
     meta: {
       icon: "icon-home",
-      title: "Main",
+      title: "Home",
       permissions: ["user"],
     },
     component: () => import("@/views/home/MainView.vue"),
@@ -20,6 +20,16 @@ export const menus: RouteRecordRaw[] = [
       permissions: ["user"],
     },
     component: () => import("@/views/home/UsageView.vue"),
+  },
+  {
+    name: "Billing",
+    path: "billing",
+    meta: {
+      icon: "icon-creditcard",
+      title: "Billing",
+      permissions: ["user"],
+    },
+    component: () => import("@/views/home/BillingView.vue"),
   },
   {
     name: "Settings",

@@ -41,8 +41,8 @@ const handleTransitionEnd = () => {
 
 <template>
   <li
-      :class="active ? 'text-green-600 hover:text-green-800 bg-green-200 hover:bg-green-300 active:bg-green-300': 'text-stone-500 hover:text-stone-900 hover:bg-neutral-200 active:bg-neutral-300'"
-      class="flex flex-row items-center gap-3 px-2.5 py-2 mb-1 cursor-pointer rounded-lg select-none"
+      :class="active ? 'text-green-600 hover:text-green-800 bg-green-200 bg-opacity-50 hover:bg-green-200 active:bg-green-300': 'text-stone-500 hover:text-stone-900 hover:bg-neutral-200 active:bg-neutral-300'"
+      class="flex flex-row items-center gap-2 px-2 py-2 mb-1 cursor-pointer rounded-lg select-none"
       @click="jumpRouterHandle"
   >
     <i :class="icon" class="iconfont leading-5"/>

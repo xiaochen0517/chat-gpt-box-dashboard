@@ -16,17 +16,17 @@ const menuMouseHover = ref(false);
 </script>
 
 <template>
-  <div class="relative h-full w-12">
+  <div class="relative h-full w-14">
     <div
-        class="z-10 bg-white hover:shadow-right absolute left-0 top-0 bottom-0 h-full flex flex-col w-12 group hover:w-64 transition-all ease-in-out duration-500 delay-100 text-xl text-neutral-700 border-r border-neutral-200"
+        class="z-10 bg-white hover:shadow-right absolute left-0 top-0 bottom-0 h-full flex flex-col w-14 group hover:w-64 transition-all ease-in-out duration-500 delay-100 text-xl text-neutral-700 border-r border-neutral-200"
         @mouseenter="menuMouseHover = true"
         @mouseleave="menuMouseHover = false"
     >
       <i
-          class="iconfont icon-menu mx-3 mt-2 mb-2 hover:text-green-600 cursor-pointer"
-          @click="$router.push({path: '/main'})"
+          class="iconfont icon-menu mx-5 my-2 hover:text-green-600 cursor-pointer"
+          @click="$router.push({path: '/home'})"
       />
-      <ul class="p-1 flex-1">
+      <ul class="p-2.5 flex-1">
         <SideMenuListItem
             v-for="menuItem in menuList"
             :key="menuItem.path"
@@ -37,7 +37,7 @@ const menuMouseHover = ref(false);
             :title="menuItem.meta?.title as string"
         />
       </ul>
-      <ul class="p-1 pb-2">
+      <ul class="p-2.5 pb-2">
         <SideMenuListItem
             :hover="menuMouseHover"
             icon="icon-alert"
