@@ -4,7 +4,7 @@ import {CanvasRenderer} from "echarts/renderers";
 import {BarChart} from "echarts/charts";
 import {GridComponent, LegendComponent, TitleComponent, TooltipComponent} from "echarts/components";
 import VChart from "vue-echarts";
-import {EChartsOption} from "echarts";
+import {BarSeriesOption, EChartsOption} from "echarts";
 import {onMounted, ref} from "vue";
 
 use([
@@ -36,9 +36,8 @@ const option = ref<EChartsOption>({
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     formatter: function (params: any) {
-      console.log(params);
       const data = params[0];
-      return `1月${data.name}日: $${data.value.toFixed(2)}`;
+      return `${data.name}: $${data.value.toFixed(2)}`;
     },
   },
   grid: {
@@ -50,39 +49,53 @@ const option = ref<EChartsOption>({
   },
   xAxis: {
     type: "category",
-    data: [] as string[],
-    axisLabel: {
-      interval: function (index: number) {
-        // 每 3 天显示一次
-        return index % 3 === 0;
-      },
-    },
   },
   yAxis: {
     type: "value",
+    axisLine: {
+      show: true,
+    },
+    axisTick: {
+      show: true,
+    },
     axisLabel: {
       formatter: function (value: number) {
         return `$${value.toFixed(2)}`;
       },
     },
   },
-  series: [
-    {
-      data: [] as number[],
-      type: "bar",
-      itemStyle: {
-        color: "#22c55e",
-        borderRadius: [2, 2, 0, 0],
-      },
+  series: [{
+    type: "bar",
+    barCategoryGap: "5%", // 调整同一类目中柱间距离
+    barGap: "20%", // 调整不同类目中柱间距离
+    itemStyle: {
+      color: "#22c55e",
+      borderRadius: [2, 2, 0, 0],
     },
-  ],
+    data: [] as number[],
+  }] as BarSeriesOption[],
 });
 
 onMounted(() => {
-  for (let i = 1; i < 32; i++) {
-    option.value.series[0].data.push(Math.floor(Math.random() * 10));
-    option.value.xAxis.data.push(`${i}`);
+  if (!option.value.series) {
+    return;
   }
+  let xAxisData = [] as string[];
+  for (let i = 1; i < 32; i++) {
+    const num = parseFloat(`${Math.random() * 10}.${Math.random() * 10}${Math.random() * 10}`);
+    ((option.value.series as BarSeriesOption[])[0]?.data as number[]).push(num);
+    xAxisData.push(`2月${i}日`);
+  }
+  option.value.xAxis = {
+    type: "category",
+    data: xAxisData,
+    axisLabel: {
+      interval: function (index: number) {
+        // 每 3 天显示一次
+        return index % 3 === 0;
+      },
+    },
+  };
 });
 </script>
 
